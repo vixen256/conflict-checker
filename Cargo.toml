@@ -1,0 +1,24 @@
+[package]
+name = "conflict-checker"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+diva_db = { git = "https://github.com/vixen256/diva_db", features = ["serde"] }
+eframe = "0.32"
+egui_extras = "0.32"
+module_db = { git = "https://github.com/vixen256/module_db" }
+pv_db = { git = "https://github.com/vixen256/pv_db" }
+reqwest = { version = "0.12", features = ["json"] }
+rfd = "0.15"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+time = { version = "0.3", features = ["serde", "serde-human-readable"] }
+tokio = { version = "1.47", features = ["full"] }
+toml = "0.9"
+walkdir = "2.5"
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+strip = true
