@@ -405,6 +405,23 @@ impl eframe::App for AppData {
 			}
 
 			if let Some(user_data) = &self.user_data {
+				if !self.pv_conflicts
+					&& !self.pv_reservation_conflicts
+					&& !self.module_conflicts
+					&& !self.module_reservation_conflicts
+					&& !self.module_cos_reservation_conflicts
+					&& !self.cstm_item_conflicts
+					&& !self.cstm_item_reservation_conflicts
+					&& !self.spr_set_conflicts
+					&& !self.sprite_conflicts
+					&& !self.aet_set_conflicts
+					&& !self.aet_scene_conflicts
+					&& !self.objset_conflicts
+					&& !self.texture_conflicts
+				{
+					ui.label("No conflicts found");
+				}
+
 				if self.pv_conflicts {
 					ui.collapsing("PV Conflicts", |ui| {
 						TableBuilder::new(ui)
@@ -1025,14 +1042,9 @@ async fn main() {
 		texture_conflicts: false,
 	};
 
-	let options = eframe::NativeOptions {
-		viewport: egui::ViewportBuilder::default().with_drag_and_drop(true),
-		..Default::default()
-	};
-
 	eframe::run_native(
 		"DMA Conflict Checker",
-		options,
+		eframe::NativeOptions::default(),
 		Box::new(|_cc| Ok(Box::new(app))),
 	)
 	.unwrap();
